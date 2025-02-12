@@ -9,12 +9,13 @@ import { DragOverlayWrapper} from './dragoverlaywrapper'
 function App() {
   return (
     <DndContext>
-      <DragOverlayWrapper />
-      <div className='h-screen flex flex-row text-white'>
+
+      <main className='h-screen flex flex-row text-white'>
         <div className='flex flex-col bg-[url(/paper.svg)] w-full h-full'>
           <Designer />
         </div>
-      </div>
+      </main>
+      <DragOverlayWrapper />
     </DndContext>
   );
 }
