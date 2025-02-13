@@ -4,11 +4,24 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { Designer } from './designer'
 import { Siderbar } from './sidebar'
-import { DndContext } from '@dnd-kit/core'
+import { DndContext, MouseSensor, useSensors,useSensor, TouchSensor } from '@dnd-kit/core'
 import { DragOverlayWrapper} from './dragoverlaywrapper'
+
 function App() {
+  const mouseSensor = useSensor(MouseSensor,{
+    activationConstraint:{
+      distance:10,
+    }
+  })
+  const touchSensor = useSensor(TouchSensor,{
+    activationConstraint:{
+      delay:300,
+      tolerance:5,
+    }
+  })
+  const sensors =  useSensors(mouseSensor,touchSensor)
   return (
-    <DndContext>
+    <DndContext sensors={sensors}>
 
       <main className='h-screen flex flex-row text-white'>
         <div className='flex flex-col bg-[url(/paper.svg)] w-full h-full'>

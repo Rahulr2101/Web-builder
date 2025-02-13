@@ -34,11 +34,10 @@ export const Designer = () => {
     <div className='flex w-full h-full'>
         <div className='p-4 w-full'>
             <div ref={droppable.setNodeRef} className='bg-slate-900 max-w-[920px] h-full m-auto rounded-xl flex flex-col flex-grow items-center justify-start flex-1 overflow-y-auto'>
-                {!droppable.isOver&& elements.length == 0 &&(<p className='text-3xl flex flex-grow items-center font-bold'>Drop here</p>)}
-            {droppable.isOver &&(
+                {!droppable.isOver&& elements.length === 0 &&(<p className='text-3xl flex flex-grow items-center font-bold'>Drop here</p>)}
+            {droppable.isOver&& elements.length === 0 &&(
                 <div className='p-4 w-full'>
                     <div className='h-[120px] rounded-md bg-slate-600'>
-                        
                     </div>
                     </div> 
             )}
@@ -97,19 +96,15 @@ function DesignerElementWrapper({element}){
   >
     <div
       ref={topdropable.node}
-      className={`absolute h-1/2 w-full rounded-md ${
-        topdropable.isOver ? '' : ''
-      }`}
+      className={`absolute h-1/2 w-full rounded-md`}
     ></div>
     <div
       ref={bottomdropable.node}
-      className={`absolute h-1/2 w-full rounded-md ${
-        bottomdropable.isOver ? 'bg-red-400' : ''
-      }`}
+      className={`absolute h-1/2 w-full rounded-md bottom-0  `}
     ></div>
 
     {isMouseOver && (
-      <div className='absolute right-0 h-full'>
+      <div className={`absolute right-0 h-full`}>
         <button
           className='flex h-full bg-red-800 rounded-md items-center'
           onClick={() => removeElement(element.id)}
@@ -118,8 +113,15 @@ function DesignerElementWrapper({element}){
         </button>
       </div>
     )}
+    {
+      topdropable.isOver&&<div className='border-t-2 border-white rounded-t-md'/>
+    }
 
     <DesignerElement WebInstance={element} />
+   
+    {
+      bottomdropable.isOver&&<div className='border-b-2 border-white rounded-b-2'/>
+    }
   </div>
     
 }
