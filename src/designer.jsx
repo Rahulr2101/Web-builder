@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { Siderbar } from './sidebar'
-import { useDndMonitor, useDroppable } from '@dnd-kit/core'
+import { useDndMonitor, useDraggable, useDroppable } from '@dnd-kit/core'
 import { useDesigner } from './hooks/useDesigner'; 
 import { WebElement } from './Webelement';
 import { idGenerator } from './idGenerator';
+import { MdDelete } from "react-icons/md";
 
 export const Designer = () => {
-    const { elements, addElement } = useDesigner(); 
+    const { elements, addElement } = useDesigner();
 
     const droppable = useDroppable({
         id: "designer-drop-area",
@@ -58,7 +59,67 @@ export const Designer = () => {
 }
 
 function DesignerElementWrapper({element}){
+    const {removeElement} = useDesigner();
+    const [isMouseOver, setIsMouseOver] = useState(false);
     const DesignerElement = WebElement[element.type]?.designerComponent;
+    const topdropable = useDroppable({
+        id: element.id + '-top',
+        data:{
+            type: element.type,
+            elementId: element.id,
+            isTopHalfDesignerElement: true
+        }
+    })
+    const bottomdropable = useDroppable({
+        id: element.id + '-bottom',
+        data:{
+            type: element.type,
+            elementId: element.id,
+            isBottomHalfDesignerElement: true
+        }
+    })
+    const draggable = useDraggable({
+        id: element.id + '-drag-handler',
+        data:{
+            type:element.type,
+            elementId: element.id,
+            isDesignerElement:true,
+        }
+    })
+    if(draggable.isDragging) return null;
+    return<div 
+    ref = {draggable.node}
+    {...draggable.listeners}
+    {...draggable.attributes}
+    className='flex flex-col w-full relative'
+    onMouseEnter={() => setIsMouseOver(true)}
+    onMouseLeave={() => setIsMouseOver(false)}
+  >
+    <div
+      ref={topdropable.node}
+      className={`absolute h-1/2 w-full rounded-md ${
+        topdropable.isOver ? '' : ''
+      }`}
+    ></div>
+    <div
+      ref={bottomdropable.node}
+      className={`absolute h-1/2 w-full rounded-md ${
+        bottomdropable.isOver ? 'bg-red-400' : ''
+      }`}
+    ></div>
 
-    return <DesignerElement WebInstance={element}/>
+    {isMouseOver && (
+      <div className='absolute right-0 h-full'>
+        <button
+          className='flex h-full bg-red-800 rounded-md items-center'
+          onClick={() => removeElement(element.id)}
+        >
+          <MdDelete className='h-6 w-10' />
+        </button>
+      </div>
+    )}
+
+    <DesignerElement WebInstance={element} />
+  </div>
+    
 }

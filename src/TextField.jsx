@@ -24,10 +24,11 @@ export const TextFieldElement = {
 
 function DesignerComponent({ WebInstance }) {
     const element = WebInstance;
+    console.log(element)
     const { label, required, placeHolder, helperText } = element.extraAttributes;
 
     return (
-        <div className="flex flex-col gap-1 w-full">
+        <div className="flex flex-col gap-1 w-full bg-slate-600 rounded-md p-2">
            
             <label className="text-sm font-semibold text-gray-300">
                 {label} {required && <span className="text-red-500">*</span>}
@@ -35,14 +36,14 @@ function DesignerComponent({ WebInstance }) {
             <input
                 type="text"
                 placeholder={placeHolder}
-                className="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-700 
-                           shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
-                           disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed 
+                className="w-full p-3 border border-slate-900 rounded-lg  text-slate-300
+                           shadow-sm focus:ring-2 
+                       
                            transition-all ease-in-out duration-200"
             />
 
             
-            {helperText && <p className="text-xs text-gray-500">{helperText}</p>}
+            {helperText && <p className="text-xs text-slate-300">{helperText}</p>}
         </div>
     );
 }
