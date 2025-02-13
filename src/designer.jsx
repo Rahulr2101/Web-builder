@@ -15,7 +15,6 @@ export const Designer = () => {
             isDesignerDropArea:true,
         }
     })
-    console.log(elements)
     useDndMonitor({
         onDragEnd:(event)=>{
             const {active,over} = event;
@@ -58,7 +57,7 @@ export const Designer = () => {
 }
 
 function DesignerElementWrapper({element}){
-    const {removeElement} = useDesigner();
+    const {removeElement,selectedElement,setSelectedElement} = useDesigner();
     const [isMouseOver, setIsMouseOver] = useState(false);
     const DesignerElement = WebElement[element.type]?.designerComponent;
     const topdropable = useDroppable({
@@ -93,6 +92,11 @@ function DesignerElementWrapper({element}){
     className='flex flex-col w-full relative'
     onMouseEnter={() => setIsMouseOver(true)}
     onMouseLeave={() => setIsMouseOver(false)}
+    onClick={(e)=>{
+      e.stopPropagation();
+      setSelectedElement(element)
+      console.log("Selected a element")
+    }}
   >
     <div
       ref={topdropable.node}
@@ -107,7 +111,8 @@ function DesignerElementWrapper({element}){
       <div className={`absolute right-0 h-full`}>
         <button
           className='flex h-full bg-red-800 rounded-md items-center'
-          onClick={() => removeElement(element.id)}
+          onClick={(e) => {e.stopPropagation();
+            removeElement(element.id)}}
         >
           <MdDelete className='h-6 w-10' />
         </button>

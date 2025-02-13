@@ -24,7 +24,6 @@ export const TextFieldElement = {
 
 function DesignerComponent({ WebInstance }) {
     const element = WebInstance;
-    console.log(element)
     const { label, required, placeHolder, helperText } = element.extraAttributes;
 
     return (

@@ -5,6 +5,7 @@ export const DesignerContext = createContext(null);
 
 export default function DesignerContextProvider({children}){
     const [elements,setElements] = useState([]);
+    const [selectedElement,setSelectedElement] = useState(null)
     const removeElement = (id) =>{
         setElements((prev)=>prev.filter((element)=>element.id !== id));
     }
@@ -15,5 +16,5 @@ export default function DesignerContextProvider({children}){
             return newElements
         })
     }
-    return <DesignerContext.Provider value={{elements,addElement,removeElement}}>{children}</DesignerContext.Provider>
+    return <DesignerContext.Provider value={{elements,addElement,removeElement,setSelectedElement}}>{children}</DesignerContext.Provider>
 }
