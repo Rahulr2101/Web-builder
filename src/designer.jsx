@@ -7,7 +7,7 @@ import { idGenerator } from './idGenerator';
 import { MdDelete } from "react-icons/md";
 
 export const Designer = () => {
-    const { elements, addElement } = useDesigner();
+    const { elements, addElement,setSelectedElement,selectedElement } = useDesigner();
 
     const droppable = useDroppable({
         id: "designer-drop-area",
@@ -31,7 +31,9 @@ export const Designer = () => {
     })
   return (
     <div className='flex w-full h-full'>
-        <div className='p-4 w-full'>
+        <div className='p-4 w-full' onClick={()=>{
+          setSelectedElement(null)
+        }}>
             <div ref={droppable.setNodeRef} className='bg-slate-900 max-w-[920px] h-full m-auto rounded-xl flex flex-col flex-grow items-center justify-start flex-1 overflow-y-auto'>
                 {!droppable.isOver&& elements.length === 0 &&(<p className='text-3xl flex flex-grow items-center font-bold'>Drop here</p>)}
             {droppable.isOver&& elements.length === 0 &&(
@@ -95,7 +97,6 @@ function DesignerElementWrapper({element}){
     onClick={(e)=>{
       e.stopPropagation();
       setSelectedElement(element)
-      console.log("Selected a element")
     }}
   >
     <div

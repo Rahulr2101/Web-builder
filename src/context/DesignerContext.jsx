@@ -9,6 +9,7 @@ export default function DesignerContextProvider({children}){
     const removeElement = (id) =>{
         setElements((prev)=>prev.filter((element)=>element.id !== id));
     }
+
     const addElement = (index,elements) =>{
         setElements(prev =>{
             const newElements = [...prev]
@@ -16,5 +17,16 @@ export default function DesignerContextProvider({children}){
             return newElements
         })
     }
-    return <DesignerContext.Provider value={{elements,addElement,removeElement,setSelectedElement}}>{children}</DesignerContext.Provider>
+
+    const updateElement = (id,element) =>{
+       setElements(prev =>{
+        const newElement = [...prev]
+        const index = newElement.findIndex(el=>el.id === id)
+        newElement[index] = element
+        return newElement
+       })
+    }
+
+   
+    return <DesignerContext.Provider value={{elements,addElement,removeElement,selectedElement,setSelectedElement,updateElement}}>{children}</DesignerContext.Provider>
 }
