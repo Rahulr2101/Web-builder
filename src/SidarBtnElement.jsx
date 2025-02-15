@@ -13,12 +13,12 @@ export const SidarBtnElement = ({webElement}) => {
             isDesignerBtnElement:true,
         }
     })
-    const baseStyles = "px-4 py-2 rounded-lg font-medium transition-all duration-200";
+    const baseStyles = "px-4 py-2 w-full rounded-lg font-medium transition-all duration-200";
     const variants = {
         default: "bg-blue-600 text-white hover:bg-blue-700",
         outline: "border border-blue-600 text-blue-600 hover:bg-blue-100",
         ghost: "text-gray-700 hover:bg-gray-200",
-        baseStyles: "flex flex-col gap-2 h-[120px] w-[120px] cursor-grab"
+        baseStyles: "flex flex-col gap-2 h-[120px] w-full cursor-grab"
       };
   return (
     <button
