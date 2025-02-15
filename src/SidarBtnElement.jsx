@@ -13,22 +13,16 @@ export const SidarBtnElement = ({webElement}) => {
             isDesignerBtnElement:true,
         }
     })
-    const baseStyles = "px-4 py-2 w-full rounded-lg font-medium transition-all duration-200";
-    const variants = {
-        default: "bg-blue-600 text-white hover:bg-blue-700",
-        outline: "border border-blue-600 text-blue-600 hover:bg-blue-100",
-        ghost: "text-gray-700 hover:bg-gray-200",
-        baseStyles: "flex flex-col gap-2 h-[120px] w-full cursor-grab"
-      };
+   
   return (
     <button
       ref={draggable.setNodeRef}
       {...draggable.listeners}
       {...draggable.attributes}
-      className={`${baseStyles} ${variants["default"]} ${variants[baseStyles]}`}
+      className={`flex flex-col max-w-20 gap-2`}
     >
-      <Icon className ="h-8 w-8 text-slate-700 cursor-grab"/>
-      <p className="text-xs text-white">{label}</p>
+      <Icon className =" text-slate-700 cursor-grab bg-accent rounded-md w-10 h-10 "/>
+      <p className="text-xs text-white text-center">{label}</p>
     </button>
   )
 }

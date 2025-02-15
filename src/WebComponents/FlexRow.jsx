@@ -17,7 +17,7 @@ export const FlexRowElement = {
     }),
     designerBtnElement:{
         icon:GoRows,
-        label:"Flex Row"
+        label:"Row"
     },
     designerComponent:designerComponent,
     formComponent:() =><h1>formComponent Flex</h1>,

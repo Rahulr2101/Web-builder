@@ -12,7 +12,7 @@ export const TextFieldElement = {
         id,
         type,
         extraAttributes:{
-            label:"Text field",
+            label:"Text",
             helperText: "Helper text",
             required: false,
             placeHolder: "Value here..."
@@ -20,7 +20,7 @@ export const TextFieldElement = {
     }),
     designerBtnElement: {
         icon:MdOutlineTextFields,
-        label:"Text Field",
+        label:"Text",
     },
     designerComponent: DesignerComponent,
     formComponent: () => <div className='text-white'>Form component</div>,

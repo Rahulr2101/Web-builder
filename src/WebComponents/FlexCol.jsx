@@ -17,7 +17,7 @@ export const FlexColElement = {
     }),
     designerBtnElement:{
         icon:TfiLayoutColumn3Alt,
-        label:"Flex Column"
+        label:"Column"
     },
     designerComponent:designerComponent,
     formComponent:() =><h1>formComponent Flex</h1>,
