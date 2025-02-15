@@ -60,9 +60,7 @@ export const Designer = () => {
               const overElementIndex = elements.findIndex(el => el.id === over.data.current.elementId)
               const activeElement = {...elements[activeElementIndex]}
               removeElement(activeId);
-              console.log(overElementIndex)
               let indexOfActiveElement = overElementIndex;
-              console.log(indexOfActiveElement)
               if(isDroppingOverDesignerElementBottom){
                 indexOfActiveElement = indexOfActiveElement + 1
 
