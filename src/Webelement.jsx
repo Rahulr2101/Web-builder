@@ -1,5 +1,6 @@
-import { TextFieldElement } from "./TextField";
-
+import { TextFieldElement } from "./WebComponents/TextField";
+import {FlexColElement} from './WebComponents/FlexCol'
 export const WebElement ={
-    TextField: TextFieldElement
+    TextField: TextFieldElement,
+    FlexCol:FlexColElement
 }

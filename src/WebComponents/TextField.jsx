@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { LiaAvianex } from 'react-icons/lia';
 import { MdOutlineTextFields } from "react-icons/md";
-import { useDesigner } from './hooks/useDesigner';
+import { useDesigner } from '../hooks/useDesigner';
 const type = "TextField";
 import { useForm } from 'react-hook-form';
-import HelperTextInput from './components/HelperTextInput'
+import HelperTextInput from '../components/HelperTextInput'
 
 export const TextFieldElement = {
     type,
@@ -62,6 +62,7 @@ function PropertiesComponet({WebInstance}){
         <div className='flex flex-col'>
           <form onBlur={form.handleSubmit(applyChanges)} onSubmit={(e)=>{
             e.preventDefault();
+           
           }} className="flex flex-col p-4 space-y-4">
             <HelperTextInput
                     register={form.register}

@@ -7,7 +7,7 @@ import { idGenerator } from './idGenerator';
 import { MdDelete } from "react-icons/md";
 
 export const Designer = () => {
-    const { elements, addElement,setSelectedElement,selectedElement,removeElement } = useDesigner();
+    const { elements, addElement,setSelectedElement,selectedElement,FlexCol,removeElement,addFlexColElement } = useDesigner();
 
     const droppable = useDroppable({
         id: "designer-drop-area",
@@ -19,6 +19,15 @@ export const Designer = () => {
         onDragEnd:(event)=>{
             const {active,over} = event;
             if(!active || !over) return;
+            
+            const isFlexColOver = over.data.current.isFlexCol
+            if(isFlexColOver){
+              const type = active.data.current.type;
+              const newElement = WebElement[type].construct(
+                idGenerator()
+              )
+              addFlexColElement(FlexCol.length,newElement)
+            }
             const isDesignerBtnElement = active.data?.current?.isDesignerBtnElement;
             const isDroppingOverDesigner = over.data.current.isDesignerDropArea
             if(isDesignerBtnElement && isDroppingOverDesigner){
@@ -74,14 +83,8 @@ export const Designer = () => {
         <div className='p-4 w-full' onClick={()=>{
           setSelectedElement(null)
         }}>
-            <div ref={droppable.setNodeRef} className='bg-slate-900 max-w-[920px] h-full m-auto rounded-xl flex flex-col flex-grow items-center justify-start flex-1 overflow-y-auto'>
+            <div ref={droppable.setNodeRef} className={`bg-slate-900 max-w-[920px] h-full m-auto rounded-xl flex flex-col flex-grow items-center justify-start flex-1 overflow-y-auto `}>
                 {!droppable.isOver&& elements.length === 0 &&(<p className='text-3xl flex flex-grow items-center font-bold'>Drop here</p>)}
-            {droppable.isOver&& elements.length === 0 &&(
-                <div className='p-4 w-full'>
-                    <div className='h-[120px] rounded-md bg-slate-600'>
-                    </div>
-                    </div> 
-            )}
             {elements.length >0 &&(
     <div className='flex flex-col w-full gap-2 p-4'>
     {elements.map(element =>(
