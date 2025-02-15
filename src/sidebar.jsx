@@ -8,7 +8,7 @@ export const Siderbar = () => {
   const {selectedElement} = useDesigner()
 
   return (
-    <aside className='w-[400px] max-w-[400px] flex flex-col flex-grow gap-2 border-l-2 border-0 p-4 bg-slate-900 overflow-y-auto h-full'>
+    <aside className='w-[400px] max-w-[400px] flex flex-col flex-grow gap-2 border-0 p-4 bg-secondary border-l-2 border-border overflow-y-auto h-full'>
    {
     selectedElement && <Propertiesbar/>
    }

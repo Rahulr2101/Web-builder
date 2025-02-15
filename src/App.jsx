@@ -24,7 +24,7 @@ function App() {
     <DndContext sensors={sensors}>
 
       <main className='h-screen flex flex-row text-white'>
-        <div className='flex flex-col bg-[url(/paper.svg)] w-full h-full'>
+        <div className='flex flex-col  w-full h-full'>
           <Designer />
         </div>
       </main>

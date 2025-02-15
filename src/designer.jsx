@@ -82,14 +82,14 @@ export const Designer = () => {
         }
     })
   return (
-    <div className='flex w-full h-full'>
-        <div className='p-4 w-full' onClick={()=>{
+    <div className='flex w-full h-full '>
+        <div className='w-full' onClick={()=>{
           setSelectedElement(null)
         }}>
-            <div ref={droppable.setNodeRef} className={`bg-slate-900 max-w-[920px] h-full m-auto rounded-xl flex flex-col flex-grow items-center justify-start flex-1 overflow-y-auto `}>
+            <div ref={droppable.setNodeRef} className={`bg-primary p-2  h-full  flex flex-col flex-grow items-center justify-start flex-1  `}>
                 {!droppable.isOver&& elements.length === 0 &&(<p className='text-3xl flex flex-grow items-center font-bold'>Drop here</p>)}
             {elements.length >0 &&(
-    <div className='flex flex-col w-full gap-2 p-4'>
+    <div className='flex flex-col w-full gap-2 '>
     {elements.map(element =>(
         <DesignerElementWrapper key={element.id} element={element}/>
     ))}
