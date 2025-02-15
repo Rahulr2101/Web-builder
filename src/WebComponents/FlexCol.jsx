@@ -1,5 +1,7 @@
 import { useDroppable } from "@dnd-kit/core";
 import { TfiLayoutColumn3Alt } from "react-icons/tfi";
+import { useDesigner } from "../hooks/useDesigner";
+import { DesignerElementWrapper } from "../designer";
 
 const type = "FlexCol"
 export const FlexColElement = {
@@ -8,7 +10,7 @@ export const FlexColElement = {
         id,
         type,
         extraAttributes:{
-            gap:"0",
+            gap:"gap-2",
             justify:"justify-start",
             item:"item-start"
         }
@@ -23,6 +25,7 @@ export const FlexColElement = {
 }
 
 function designerComponent({WebInstance}){
+    const {flexCol} = useDesigner()
     const element = WebInstance
     const {gap,justify,item} = element.extraAttributes
     const dropable = useDroppable({
@@ -34,10 +37,15 @@ function designerComponent({WebInstance}){
         }
     })
     return(
-        <div ref={dropable.node} className={`flex-col ${gap} ${justify} ${item}`} >
-            <div className="w-full h-full">
-                Drop here
-            </div>
+        <div ref={dropable.node} className={`flex flex-col ${gap} ${justify} ${item} p-2 border-slate-600 border-2 rounded-md min-h-20`} >
+            {(!flexCol[element.id] || flexCol[element.id].length === 0) && (
+    <div className="w-full h-full">Drop here</div>
+)}  
+            {
+                (flexCol[element.id] || []).map(element => (
+                    <DesignerElementWrapper key={element.id} element={element} />
+                ))
+            }
         </div>
     )
 }

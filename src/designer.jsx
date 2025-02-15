@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { act, useState } from 'react'
 import { Siderbar } from './sidebar'
 import { useDndMonitor, useDraggable, useDroppable } from '@dnd-kit/core'
 import { useDesigner } from './hooks/useDesigner'; 
@@ -19,14 +19,17 @@ export const Designer = () => {
         onDragEnd:(event)=>{
             const {active,over} = event;
             if(!active || !over) return;
-            
+           
             const isFlexColOver = over.data.current.isFlexCol
+            console.log(over.data.current.elementId)
             if(isFlexColOver){
+              const overId = over.data.current.elementId
               const type = active.data.current.type;
               const newElement = WebElement[type].construct(
                 idGenerator()
               )
-              addFlexColElement(FlexCol.length,newElement)
+              console.log(overId)
+              addFlexColElement(overId,0,newElement)
             }
             const isDesignerBtnElement = active.data?.current?.isDesignerBtnElement;
             const isDroppingOverDesigner = over.data.current.isDesignerDropArea
@@ -101,7 +104,7 @@ export const Designer = () => {
   )
 }
 
-function DesignerElementWrapper({element}){
+export function DesignerElementWrapper({element}){
     const {removeElement,selectedElement,setSelectedElement} = useDesigner();
     const [isMouseOver, setIsMouseOver] = useState(false);
     const DesignerElement = WebElement[element.type]?.designerComponent;

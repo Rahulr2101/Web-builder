@@ -6,17 +6,22 @@ export const DesignerContext = createContext(null);
 export default function DesignerContextProvider({children}){
     const [elements,setElements] = useState([]);
     const [selectedElement,setSelectedElement] = useState(null)
-    const [flexCol,setFlexCol] = useState([])
+    const [flexCol,setFlexCol] = useState({})
     const removeElement = (id) =>{
         setElements((prev)=>prev.filter((element)=>element.id !== id));
     }
-    const addFlexColElement = (index,elements)=>{
-        setFlexCol(prev =>{
-            const newElement = [...prev]
-            newElement.splice(index,0,elements)
-            return newElement
-        })
-    }
+    const addFlexColElement = (id, index, element) => {
+        setFlexCol(prev => {
+            const newFlexCol = { ...prev };
+            if (!newFlexCol[id]) newFlexCol[id] = []; 
+            
+            const updatedElements = [...newFlexCol[id]];
+            updatedElements.splice(index, 0, element); 
+    
+            newFlexCol[id] = updatedElements;
+            return newFlexCol;
+        });
+    };
     const addElement = (index,elements) =>{
         setElements(prev =>{
             const newElements = [...prev]
