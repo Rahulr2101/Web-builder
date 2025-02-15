@@ -7,7 +7,7 @@ import { idGenerator } from './idGenerator';
 import { MdDelete } from "react-icons/md";
 
 export const Designer = () => {
-    const { elements, addElement,setSelectedElement,selectedElement } = useDesigner();
+    const { elements, addElement,setSelectedElement,selectedElement,removeElement } = useDesigner();
 
     const droppable = useDroppable({
         id: "designer-drop-area",
@@ -20,12 +20,54 @@ export const Designer = () => {
             const {active,over} = event;
             if(!active || !over) return;
             const isDesignerBtnElement = active.data?.current?.isDesignerBtnElement;
-            if(isDesignerBtnElement){
-                const type = active.data?.current?.type;
+            const isDroppingOverDesigner = over.data.current.isDesignerDropArea
+            if(isDesignerBtnElement && isDroppingOverDesigner){
+                const type = active.data.current.type;
                 const newElement = WebElement[type].construct(
                     idGenerator()
                 );
-                addElement(0,newElement)
+                addElement(elements.length,newElement)
+                return
+            }
+            const isDroppingOverDesignerElementTop = over.data.current.isTopHalfDesignerElement
+            const isDroppingOverDesignerElementBottom = over.data.current.isBottomHalfDesignerElement
+
+            const isDroppingOverDesignerElement = isDroppingOverDesignerElementBottom || isDroppingOverDesignerElementTop
+
+            const droppingSidebtnOverDesignerElement = isDesignerBtnElement && isDroppingOverDesignerElement
+            if(droppingSidebtnOverDesignerElement){
+                const type = active.data.current.type;
+                const newElement = WebElement[type].construct(
+                  idGenerator()
+                )
+                const overElementIndex  = elements.findIndex(el => el.id === over.data.current.elementId)
+              
+                let indexOfNewElement = overElementIndex
+               
+                if(isDroppingOverDesignerElementBottom){
+                  indexOfNewElement = indexOfNewElement + 1
+
+                }
+                addElement(indexOfNewElement,newElement)
+            }
+            const isElementDragging = active.data.current.isDesignerElement
+            const droppingElementOverElement =  isDroppingOverDesignerElement && isElementDragging
+
+            if(droppingElementOverElement){
+              const  activeId = active.data.current.elementId 
+              const activeElementIndex = elements.findIndex(el =>el.id === activeId)
+               
+              const overElementIndex = elements.findIndex(el => el.id === over.data.current.elementId)
+              const activeElement = {...elements[activeElementIndex]}
+              removeElement(activeId);
+              console.log(overElementIndex)
+              let indexOfActiveElement = overElementIndex;
+              console.log(indexOfActiveElement)
+              if(isDroppingOverDesignerElementBottom){
+                indexOfActiveElement = indexOfActiveElement + 1
+
+              }
+              addElement(indexOfActiveElement,activeElement);
             }
         }
     })

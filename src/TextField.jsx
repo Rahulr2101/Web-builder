@@ -4,6 +4,7 @@ import { MdOutlineTextFields } from "react-icons/md";
 import { useDesigner } from './hooks/useDesigner';
 const type = "TextField";
 import { useForm } from 'react-hook-form';
+import HelperTextInput from './components/HelperTextInput'
 
 export const TextFieldElement = {
     type,
@@ -55,49 +56,28 @@ function PropertiesComponet({WebInstance}){
             }
         })
     }
-    console.log(label,required,placeHolder,helperText)
+
 
     return(
         <div className='flex flex-col'>
           <form onBlur={form.handleSubmit(applyChanges)} onSubmit={(e)=>{
             e.preventDefault();
           }} className="flex flex-col p-4 space-y-4">
-            {/* Label Field */}
-            <div>
-                <label className="text-white">Label</label>
-                <input
-                    {...form.register("label")}
-                    type="text"
-                    className="mt-1 p-2 w-full rounded-md text-gray-700"
-                    onKeyDown={(e)=>{
-                        if(e.key === "Enter") e.currentTarget.blur();
-                    }}
+            <HelperTextInput
+                    register={form.register}
+                    name="label"
+                    label="Label"
                 />
-            </div>
-
-            {/* Placeholder Field */}
-            <div>
-                <label className="text-white">Placeholder</label>
-                <input
-                    {...form.register("placeHolder")}
-                    type="text"
-                    className="mt-1 p-2 w-full rounded-md text-gray-700"
-                    onKeyDown={(e)=>{
-                        if(e.key === "Enter") e.currentTarget.blur();
-                    }}
+            <HelperTextInput
+                    register={form.register}
+                    name="placeHolder"
+                    label="Placeholder"
                 />
-            </div>
-            <div>
-                <label className="text-white">Helper Text</label>
-                <input
-                    {...form.register("helperText")}
-                    type="text"
-                    className="mt-1 p-2 w-full rounded-md text-gray-700"
-                    onKeyDown={(e)=>{
-                        if(e.key === "Enter") e.currentTarget.blur();
-                    }}
+            <HelperTextInput
+                    register={form.register}
+                    name="helperText"
+                    label="Helper Text"
                 />
-            </div>
         </form>
         </div>
     )
