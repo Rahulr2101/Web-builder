@@ -8,6 +8,7 @@ export const WebComponents = () => {
             Elements
             <SidarBtnElement webElement = {WebElement.TextField}/>
             <SidarBtnElement webElement={WebElement.FlexCol}/>
+            <SidarBtnElement webElement={WebElement.FlexRow}/>
             </>
   )
 }
