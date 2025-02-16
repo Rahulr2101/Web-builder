@@ -5,6 +5,7 @@ import { useDesigner } from './hooks/useDesigner';
 import { WebElement } from './Webelement';
 import { idGenerator } from './idGenerator';
 import { MdDelete } from "react-icons/md";
+import { SideMenu } from './SideMenu';
 
 export const Designer = () => {
     const { elements, addElement,setSelectedElement,selectedElement,FlexCol,removeElement,addFlexColElement } = useDesigner();
@@ -100,6 +101,7 @@ export const Designer = () => {
 
         </div>
         <Siderbar/>
+        {/* <SideMenu/> */}
     </div>
   )
 }

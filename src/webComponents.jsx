@@ -7,7 +7,7 @@ export const WebComponents = () => {
   return (
             <>
             <DropDown label={"Input Field"}>
-            <div className='flex flex-row gap-2 items-center'>
+            <div className='flex flex-row gap-2 items-center '>
             <SidarBtnElement webElement = {WebElement.TextField}/>
             </div>
             </DropDown>

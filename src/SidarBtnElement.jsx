@@ -19,7 +19,7 @@ export const SidarBtnElement = ({webElement}) => {
       ref={draggable.setNodeRef}
       {...draggable.listeners}
       {...draggable.attributes}
-      className={`flex flex-col max-w-20 gap-2`}
+      className={`flex flex-col max-w-20 gap-2 items-center justify-center`}
     >
       <Icon className =" text-slate-700 cursor-grab bg-accent rounded-md w-10 h-10 "/>
       <p className="text-xs text-white text-center">{label}</p>
