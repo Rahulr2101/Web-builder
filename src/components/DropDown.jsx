@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { motion } from 'framer-motion';
 
-export const DropDown = ({ children, label }) => {
+export const DropDown = ({ children, label,icon:Icon }) => {
     const [show, setShow] = useState(true);
 
     return (
@@ -10,6 +10,9 @@ export const DropDown = ({ children, label }) => {
             <div className='flex flex-row justify-between items-center w-full cursor-pointer' 
                 onClick={() => setShow(!show)}
             >
+                {
+                    Icon&&<Icon/>   
+                }
                 <p className='text-lg font-bold'>{label}</p>
                 <motion.div 
                     animate={{ rotate: show ? 180 : 0 }}
@@ -23,8 +26,8 @@ export const DropDown = ({ children, label }) => {
                 
                 animate={{ opacity: show ? 1 : 0, height: show ? "auto" : 0, width:"full" }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="overflow-hidden w-full flex flex-col gap-2"
-            >
+                className="overflow-hidden w-full flex flex-col gap-2 p-2"
+            >   
                 {children}
             </motion.div>
         </>

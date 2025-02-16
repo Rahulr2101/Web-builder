@@ -8,7 +8,7 @@ export const Propertiesbar = () => {
   const {selectedElement,setSelectedElement} = useDesigner()
   const PropertiesComponent = WebElement[selectedElement.type].propertiesComponent
   return (
-    <div className='flex flex-col p-2'>
+    <div className='flex flex-col p-2 '>
       <div className='flex justify-between items-center'>
         <p className='text-sm'>
           Component Properties
