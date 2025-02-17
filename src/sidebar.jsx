@@ -25,7 +25,7 @@ export const Siderbar = () => {
     <Dom/>
    }
    </div>
-   <div className='flex flex-col  min-w-[50px] max-w-[50px] border-l-2 p-4 gap-10 border-border items-center '>
+   <div className='flex flex-col  h-screen  min-w-[50px] max-w-[50px] border-l-2 p-4 gap-10 border-border items-center '>
    
    <IoIosAdd size={32} className={`${!selectedElement && 'bg-accent rounded-md w-[32px]'}`}/>
    <CiSettings size={32}  className={`${selectedElement && 'bg-accent rounded-md w-[32px] h-[32px] '}`}/>

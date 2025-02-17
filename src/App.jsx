@@ -23,12 +23,13 @@ function App() {
   return (
     <DndContext sensors={sensors}>
 
-      <main className='h-screen flex flex-row text-white'>
+      <main className='h-full  bg-primary flex flex-row text-white'>
         <div className='flex flex-col  w-full h-full'>
           <Designer />
         </div>
       </main>
       <DragOverlayWrapper />
+     
     </DndContext>
   );
 }

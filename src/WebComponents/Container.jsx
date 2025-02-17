@@ -1,5 +1,5 @@
 import { IoSquareOutline } from "react-icons/io5";
-
+const type = "Container"
 export const ContainerElement = {
      type,
         construct: (id) =>({
@@ -12,9 +12,20 @@ export const ContainerElement = {
         }),
         designerBtnElement: {
             icon:IoSquareOutline,
-            label:"Container    ",
+            label:"Container",
         },
         designerComponent: DesignerComponent,
         formComponent: () => <div className='text-white'>Form component</div>,
         propertiesComponent:PropertiesComponet
+}
+
+function DesignerComponent({WebInstance}){
+    const element = WebInstance
+    return(
+        <div className="flex flex-col items-center border-2 border-dashed w-min rounded-md p-2">Container</div>
+    )
+}
+
+function PropertiesComponet(){
+    return <h1>PropertiesComponent</h1>
 }

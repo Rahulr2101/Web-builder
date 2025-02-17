@@ -19,6 +19,7 @@ export const WebComponents = () => {
             <div className='flex flex-row gap-2'>
             <SidarBtnElement webElement={WebElement.FlexCol}/>
             <SidarBtnElement webElement={WebElement.FlexRow}/>
+            <SidarBtnElement webElement={WebElement.Container}/>
             </div>
            
             </DropDown>
