@@ -37,7 +37,7 @@ function designerComponent({WebInstance}){
         }
     })
     return(
-        <div ref={dropable.node} className={`flex flex-row ${gap} ${justify} ${item} p-2 border-slate-600 border-2 rounded-md min-h-20`} >
+        <div ref={dropable.node} className={`flex flex-row w-full  ${gap} ${justify} ${item} p-2 border-slate-600 border-2 rounded-md min-h-20`} >
             {(!flexCol[element.id] || flexCol[element.id].length === 0) && (
     <div className="w-full h-full">Drop here</div>
 )}  

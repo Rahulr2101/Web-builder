@@ -137,7 +137,7 @@ export function DesignerElementWrapper({element}){
     ref = {draggable.node}
     {...draggable.listeners}
     {...draggable.attributes}
-    className='flex flex-col w-full relative'
+    className='flex flex-col  relative'
     onMouseEnter={() => setIsMouseOver(true)}
     onMouseLeave={() => setIsMouseOver(false)}
     onClick={(e)=>{
@@ -147,11 +147,11 @@ export function DesignerElementWrapper({element}){
   >
     <div
       ref={topdropable.node}
-      className={`absolute h-1/2 w-full rounded-md`}
+      className={`absolute h-1 w-full rounded-md `}
     ></div>
     <div
       ref={bottomdropable.node}
-      className={`absolute h-1/2 w-full rounded-md bottom-0  `}
+      className={`absolute h-1 w-full rounded-md bottom-0   `}
     ></div>
 
     {isMouseOver && (
