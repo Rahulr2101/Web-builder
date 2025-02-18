@@ -6,9 +6,6 @@ import { DropDown } from './components/DropDown'
 import { LuSquareDashed } from "react-icons/lu";
 export const Dom = () => {
   const{elements,flexCol} = useDesigner()
-  useEffect(()=>{
-    console.log(flexCol)
-  })
   return (
     <div className='flex flex-col gap-3 '>
         <p className='text-lg font-bold'>Dom</p>

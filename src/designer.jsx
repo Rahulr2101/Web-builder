@@ -7,7 +7,7 @@ import { idGenerator } from './idGenerator';
 import { MdDelete } from "react-icons/md";
 
 export const Designer = () => {
-    const { elements, addElement,setSelectedElement,selectedElement,FlexCol,removeElement,addFlexColElement } = useDesigner();
+    const { elements, addElement,setSelectedElement,selectedElement,flexCol,removeElement,addFlexColElement } = useDesigner();
 
     const droppable = useDroppable({
         id: "designer-drop-area",
@@ -21,16 +21,17 @@ export const Designer = () => {
             if(!active || !over) return;
            
             const isFlexColOver = over.data.current.isFlexCol
-            console.log(over.data.current.elementId)
+
             if(isFlexColOver){
               const overId = over.data.current.elementId
               const type = active.data.current.type;
               const newElement = WebElement[type].construct(
                 idGenerator()
               )
-              console.log(overId)
-              addFlexColElement(overId,0,newElement)
+              const flex_length = flexCol[overId]? (flexCol[overId].length) : 0;
+              addFlexColElement(overId,flex_length,newElement)
             }
+
             const isDesignerBtnElement = active.data?.current?.isDesignerBtnElement;
             const isDroppingOverDesigner = over.data.current.isDesignerDropArea
             if(isDesignerBtnElement && isDroppingOverDesigner){

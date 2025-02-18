@@ -2,12 +2,10 @@ import React,{useState} from 'react'
 import { motion } from 'framer-motion';
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { WebElement} from '../Webelement';
-import { label } from 'framer-motion/client';
 export const DropDownDom = ({children,flexElement}) => {
 const [show, setShow] = useState(true);
-console.log(flexElement.type)
 const {icon:Icon,label} = WebElement[flexElement.type].designerBtnElement
-console.log(label)
+
   return (
    
     <>  

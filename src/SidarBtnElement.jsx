@@ -29,7 +29,6 @@ export const SidarBtnElement = ({webElement}) => {
 
 
 export const SidarBtnElementDragOverlay = ({webElement}) => {
-  console.log(webElement)
     const {label,icon:Icon} = webElement.designerBtnElement
     
   return (
