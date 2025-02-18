@@ -12,7 +12,8 @@ export const FlexColElement = {
         extraAttributes:{
             gap:"gap-2",
             justify:"justify-start",
-            item:"item-start"
+            item:"item-start",
+            parent:"0"
         }
     }),
     designerBtnElement:{
@@ -33,7 +34,8 @@ function designerComponent({WebInstance}){
         data:{
             type: element.type,
             elementId: element.id,
-            isFlexCol:true
+            isFlexCol:true,
+            parent: element.extraAttributes.parent
         }
     })
     return(

@@ -15,7 +15,8 @@ export const TextFieldElement = {
             label:"Text",
             helperText: "Helper text",
             required: false,
-            placeHolder: "Value here..."
+            placeHolder: "Value here...",
+            parent:"0"
         }
     }),
     designerBtnElement: {

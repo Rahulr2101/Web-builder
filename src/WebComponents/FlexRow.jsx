@@ -12,7 +12,8 @@ export const FlexRowElement = {
         extraAttributes:{
             gap:"gap-2",
             justify:"justify-start",
-            item:"item-start"
+            item:"item-start",
+            parent:"0"
         }
     }),
     designerBtnElement:{

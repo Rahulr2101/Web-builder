@@ -7,7 +7,7 @@ import { idGenerator } from './idGenerator';
 import { MdDelete } from "react-icons/md";
 
 export const Designer = () => {
-    const { elements, addElement,setSelectedElement,selectedElement,flexCol,removeElement,addFlexColElement } = useDesigner();
+    const { elements, addElement,setSelectedElement,selectedElement,flexCol,removeElement,addFlexColElement,removeElementCol } = useDesigner();
 
     const droppable = useDroppable({
         id: "designer-drop-area",
@@ -22,19 +22,27 @@ export const Designer = () => {
            
             const isFlexColOver = over.data.current.isFlexCol
 
-            if(isFlexColOver){
+            
+
+            const isDesignerBtnElement = active.data?.current?.isDesignerBtnElement;
+            const isDroppingOverDesigner = over.data.current.isDesignerDropArea
+
+            const isNewFlexColElement  = isFlexColOver && isDesignerBtnElement
+     
+            if(isNewFlexColElement){
               const overId = over.data.current.elementId
               const type = active.data.current.type;
               const newElement = WebElement[type].construct(
                 idGenerator()
               )
+              newElement.extraAttributes.parent = overId
               const flex_length = flexCol[overId]? (flexCol[overId].length) : 0;
               addFlexColElement(overId,flex_length,newElement)
+              return
             }
 
-            const isDesignerBtnElement = active.data?.current?.isDesignerBtnElement;
-            const isDroppingOverDesigner = over.data.current.isDesignerDropArea
             if(isDesignerBtnElement && isDroppingOverDesigner){
+              
                 const type = active.data.current.type;
                 const newElement = WebElement[type].construct(
                     idGenerator()
@@ -49,6 +57,7 @@ export const Designer = () => {
 
             const droppingSidebtnOverDesignerElement = isDesignerBtnElement && isDroppingOverDesignerElement
             if(droppingSidebtnOverDesignerElement){
+              
                 const type = active.data.current.type;
                 const newElement = WebElement[type].construct(
                   idGenerator()
@@ -67,9 +76,25 @@ export const Designer = () => {
             const droppingElementOverElement =  isDroppingOverDesignerElement && isElementDragging
 
             if(droppingElementOverElement){
-              const  activeId = active.data.current.elementId 
+              const  activeId = active.data.current.elementId
+              const parentId = active.data.current.parent
+
+              if (parentId !== '0'){
+                const activeElementIndex =  flexCol[parentId].findIndex(el => el.id ===   activeId)
+                const overElementIndex = elements.findIndex(el => el.id === over.data.current.elementId)
+                const activeElement = {...flexCol[parentId][activeElementIndex]}
+                removeElementCol(parentId,activeId)
+                let indexOfActiveElement = overElementIndex;
+                active.data.current.parent = '0'
+                if(isDroppingOverDesignerElementBottom){
+                  indexOfActiveElement = indexOfActiveElement + 1
+  
+                }
+                addElement(indexOfActiveElement,activeElement);
+                return
+              }
               const activeElementIndex = elements.findIndex(el =>el.id === activeId)
-               
+              
               const overElementIndex = elements.findIndex(el => el.id === over.data.current.elementId)
               const activeElement = {...elements[activeElementIndex]}
               removeElement(activeId);
@@ -131,6 +156,7 @@ export function DesignerElementWrapper({element}){
             type:element.type,
             elementId: element.id,
             isDesignerElement:true,
+            parent:element.extraAttributes.parent
         }
     })
     if(draggable.isDragging) return null;

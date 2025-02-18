@@ -7,7 +7,8 @@ export const ContainerElement = {
             type,
             extraAttributes:{
                width:"w-[100px] min-w-20",
-               height:"w-[100px] min-h-20"
+               height:"w-[100px] min-h-20",
+               parent:"0"
             }
         }),
         designerBtnElement: {

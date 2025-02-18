@@ -5,7 +5,7 @@ import { WebElement } from './Webelement';
 import { useDesigner } from './hooks/useDesigner';
 
 export const DragOverlayWrapper = () => {
-    const {elements}  = useDesigner()
+    const {elements,flexCol}  = useDesigner()
     const[draggedItem,setDraggedItem] = useState(null);
     useDndMonitor ({
         onDragStart:(event) =>{
@@ -28,7 +28,8 @@ export const DragOverlayWrapper = () => {
     const isDesignerElement = draggedItem.data?.current?.isDesignerElement;
     if(isDesignerElement){
       const elementId = draggedItem.data?.current?.elementId 
-      const element  =  elements.find((e)=> e.id === elementId)
+      const parentId  = draggedItem.data?.current?.parent
+      const element = parentId === '0'? elements.find((e)=> e.id === elementId):flexCol[parentId].find((e)=>e.id===elementId)
       const DesignerComponents = WebElement[element.type].designerComponent
       node = <DesignerComponents WebInstance = {element}/>
     }

@@ -10,6 +10,15 @@ export default function DesignerContextProvider({children}){
     const removeElement = (id) =>{
         setElements((prev)=>prev.filter((element)=>element.id !== id));
     }
+    const removeElementCol = (parentId, childId) => {
+        setFlexCol((prev) => {
+            const newFlexCol = { ...prev };
+            if (!newFlexCol[parentId]) newFlexCol[parentId] = []; 
+            const updatedCol = newFlexCol[parentId].filter((element) => element.id !== childId);
+            newFlexCol[parentId] = updatedCol;
+            return newFlexCol; 
+        });
+    };
     const addFlexColElement = (id, index, element) => {
         setFlexCol(prev => {
             const newFlexCol = { ...prev };
@@ -40,5 +49,5 @@ export default function DesignerContextProvider({children}){
     }
 
    
-    return <DesignerContext.Provider value={{elements,addElement,removeElement,selectedElement,setSelectedElement,updateElement,flexCol,setFlexCol,addFlexColElement}}>{children}</DesignerContext.Provider>
+    return <DesignerContext.Provider value={{elements,addElement,removeElement,selectedElement,setSelectedElement,updateElement,flexCol,setFlexCol,addFlexColElement,removeElementCol}}>{children}</DesignerContext.Provider>
 }
