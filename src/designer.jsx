@@ -35,7 +35,8 @@ export const Designer = () => {
       const isDroppingOverDesigner = over.data.current.isDesignerDropArea;
 
       const isNewFlexColElement = isFlexColOver && isDesignerBtnElement;
-
+      const isElementDragging = active.data.current.isDesignerElement;
+      const isDroppingOverCol = isFlexColOver && isElementDragging
       if (isNewFlexColElement) {
         const overId = over.data.current.elementId;
         const type = active.data.current.type;
@@ -44,6 +45,18 @@ export const Designer = () => {
         const flex_length = flexCol[overId] ? flexCol[overId].length : 0;
         addFlexColElement(overId, flex_length, newElement);
         return;
+      }
+
+      if(isDroppingOverCol){
+        const overId = over.data.current.elementId
+        const childId = active.data.current.elementId;
+        const activeElementIndex = elements.findIndex((el)=> el.id === childId)
+        const activeElement = elements[activeElementIndex];
+        activeElement.extraAttributes.parent = overId
+        const flex_length = flexCol[overId] ? flexCol[overId].length : 0;
+        addFlexColElement(overId,flex_length,activeElement)
+        removeElement(childId)
+
       }
 
       if (isDesignerBtnElement && isDroppingOverDesigner) {
@@ -76,7 +89,7 @@ export const Designer = () => {
         }
         addElement(indexOfNewElement, newElement);
       }
-      const isElementDragging = active.data.current.isDesignerElement;
+      
       const droppingElementOverElement =
         isDroppingOverDesignerElement && isElementDragging;
 
