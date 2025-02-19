@@ -38,7 +38,8 @@ function PropertiesComponet({WebInstance}){
             label: element.label,
             required: element.required,
             placeHolder:element.placeHolder,
-            helperText:element.helperText
+            helperText:element.helperText,
+            parent:element.parent
         }
     })
     useEffect(()=>{
@@ -52,7 +53,8 @@ function PropertiesComponet({WebInstance}){
                 label:values.label,
                 helperText: values.helperText,
                 placeHolder: values.placeHolder,
-                required:values.required
+                required:values.required,
+                parent:values.parent
 
             }
         })
