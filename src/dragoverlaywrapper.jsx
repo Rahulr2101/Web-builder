@@ -30,6 +30,7 @@ export const DragOverlayWrapper = () => {
       const elementId = draggedItem.data?.current?.elementId 
       const parentId  = draggedItem.data?.current?.parent
       const element = parentId === '0'? elements.find((e)=> e.id === elementId):flexCol[parentId].find((e)=>e.id===elementId)
+      console.log(elementId,parentId,element)
       const DesignerComponents = WebElement[element.type].designerComponent
       node = <DesignerComponents WebInstance = {element}/>
     }
