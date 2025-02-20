@@ -5,8 +5,11 @@ import App from './App.jsx'
 import { BrowserRouter, Route, Routes } from "react-router";
 import DesignerContextProvider, { DesignerContext } from './context/DesignerContext.jsx'
 import {Home} from './Home.jsx'
+import { Provider } from 'react-redux';
+import store from './store'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <Provider store={store}>
       <BrowserRouter>
        <Routes>
         <Route path='/' element={<Home/>}/>
@@ -17,6 +20,6 @@ createRoot(document.getElementById('root')).render(
 
 
     </BrowserRouter>
-  
+    </Provider>
   </StrictMode>,
 )

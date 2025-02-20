@@ -1,12 +1,14 @@
-import React, { act, useState } from "react";
+import React, { act, useEffect, useState } from "react";
 import { Siderbar } from "./sidebar";
 import { useDndMonitor, useDraggable, useDroppable } from "@dnd-kit/core";
 import { useDesigner } from "./hooks/useDesigner";
 import { WebElement } from "./Webelement";
 import { idGenerator } from "./idGenerator";
 import { MdDelete } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+import { addPage } from "./feature/filesSlice";
 
-export const Designer = () => {
+export const Designer = ({elemenstVar,flexColVar}) => {
   const {
     elements,
     addElement,
@@ -17,6 +19,15 @@ export const Designer = () => {
     addFlexColElement,
     removeElementCol,
   } = useDesigner();
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(addPage({ name: "Designer", id: 1 }));
+  }, []);
+  
+  const allfile = useSelector((state) => state.files.files);
+  console.log(allfile);  // This will now reflect the updated state after the component re-renders.
+  
 
   const droppable = useDroppable({
     id: "designer-drop-area",
