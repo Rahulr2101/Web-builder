@@ -1,19 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const   filesSlice = createSlice({
-    name:'files',
-    initialState:{
-        files:{}
+export const filesSlice = createSlice({
+  name: "files",
+  initialState: {
+    files: [],
+  },
+
+  reducers: {
+    addPage: (state, action) => {
+      state.files.push({
+        name: action.payload.name,
+        path: action.payload.path,
+        designer: {
+          flexCol: [],
+          elementCol: [],
+        },
+      });  
     },
+  },
+});
 
-    reducers:{
-        addPage: (state,action) =>{
-            state.files[action.payload.id] = action.payload.name
-            console.log(state.files)
-           
-        }
-    }
-})
-
-export const {addPage} = filesSlice.actions
-export default filesSlice.reducer
+export const { addPage } = filesSlice.actions;
+export default filesSlice.reducer;

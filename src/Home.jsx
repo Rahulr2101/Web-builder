@@ -1,26 +1,54 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { CgWebsite } from "react-icons/cg";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addPage } from "./feature/filesSlice";
 
 export const Home = () => {
   const [createClick, setCreateClick] = useState(false);
+  const [selectPage, setSelectedPage] = useState(null);
   const [page, setPage] = useState({ name: "", path: "" });
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const pages = useSelector((state) => state.files.files);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setPage((prevPage) => ({ ...prevPage, [name]: {path:value,element:[],} }));
+    setPage((prev) => ({ ...prev, [name]: value }));
   };
-  useEffect(()=>{
-      dispatch(addPage({name:"Home",id:2}))
-  },[])
+
+  const handleCreatePage = () => {
+    if (!createClick) {
+      setCreateClick(true);
+    } else if (page.name && page.path) {
+      dispatch(addPage(page));
+      setPage({ name: "", path: "" });
+      setCreateClick(false);
+    }
+  };
+
   return (
     <div className="bg-primary h-screen flex flex-row items-center justify-center gap-10">
       <div className="flex flex-col min-w-96 min-h-[450px] text-white bg-accent rounded-md p-5">
         {!createClick ? (
-          <p className="font-bold text-2xl">Create Pages</p>
+          <div>
+            <p className="font-bold text-2xl">Create Pages</p>
+            {console.log(pages)}
+            <div className="flex flex-col gap-4 p-2 top-3">
+              {pages.map((el) => {
+                return (
+                  <div
+                    className="h-[50px] bg-border rounded-md flex flex-row items-center p-2  gap-4"
+                    onClick={() => {
+                      setSelectedPage(el);
+                    }}
+                  >
+                    <CgWebsite />
+                    <p>{el.name}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         ) : (
-          <div className="flex flex-col items-center w-full ">
+          <div className="flex flex-col items-center w-full">
             <CgWebsite size={200} className="w-24 h-24 stroke-gray-600" />
             <p>Page Name</p>
             <input
@@ -38,15 +66,29 @@ export const Home = () => {
             />
           </div>
         )}
-
         <button
           className="bg-border w-full rounded-md h-[30px] mt-auto"
-          onClick={() => setCreateClick(!createClick)}
+          onClick={handleCreatePage}
         >
-          Create Page
+          {createClick ? "Submit" : "Create Page"}
         </button>
       </div>
-      <div className="flex flex-col min-w-96 min-h-[450px] bg-accent rounded-md"></div>
+      <div className="flex flex-col min-w-96 min-h-[450px] text-white bg-accent rounded-md p-5 gap-4">
+       { selectPage &&
+       <>
+        <div className="text-white">
+          <p className="text-xs text-slate-600 font-normal">Page Name</p>
+          <p className="text-xl text-white">{selectPage.name}</p>
+        </div>
+        <div className="text-white">
+          <p className="text-xs text-slate-600 font-normal">Path</p>
+          <p className="text-xl text-white">root{selectPage.path}</p>
+        </div>
+        <button className="mt-auto bg-border rounded-md">
+          Create Design
+        </button>
+        </>}
+      </div>
     </div>
   );
 };
