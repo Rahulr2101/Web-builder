@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { CgWebsite } from "react-icons/cg";
 import { useDispatch, useSelector } from "react-redux";
 import { addPage } from "./feature/filesSlice";
+import { useNavigate } from "react-router-dom";
 
 export const Home = () => {
   const [createClick, setCreateClick] = useState(false);
   const [selectPage, setSelectedPage] = useState(null);
+  const navigate = useNavigate();
   const [page, setPage] = useState({ name: "", path: "" });
   const dispatch = useDispatch();
   const pages = useSelector((state) => state.files.files);
@@ -84,7 +86,7 @@ export const Home = () => {
           <p className="text-xs text-slate-600 font-normal">Path</p>
           <p className="text-xl text-white">root{selectPage.path}</p>
         </div>
-        <button className="mt-auto bg-border rounded-md">
+        <button className="mt-auto bg-border rounded-md" onClick={()=>navigate(`/designer/${selectPage.path}`)}>
           Create Design
         </button>
         </>}
