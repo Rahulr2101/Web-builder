@@ -19,15 +19,8 @@ export const Designer = ({elemenstVar,flexColVar}) => {
     addFlexColElement,
     removeElementCol,
   } = useDesigner();
-  const dispatch = useDispatch()
 
-  useEffect(() => {
-    dispatch(addPage({ name: "Designer", id: 1 }));
-  }, []);
-  
-  const allfile = useSelector((state) => state.files.files);
-  console.log(allfile);  // This will now reflect the updated state after the component re-renders.
-  
+ 
 
   const droppable = useDroppable({
     id: "designer-drop-area",

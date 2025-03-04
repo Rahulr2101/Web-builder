@@ -32,7 +32,6 @@ export const Home = () => {
         {!createClick ? (
           <div>
             <p className="font-bold text-2xl">Create Pages</p>
-            {console.log(pages)}
             <div className="flex flex-col gap-4 p-2 top-3">
               {pages.map((el) => {
                 return (

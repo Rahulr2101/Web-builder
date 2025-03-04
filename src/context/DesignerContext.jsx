@@ -1,53 +1,63 @@
-import { createContext, useState } from "react";
+import { createContext } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { 
+  addElement, 
+  removeElementFlex, 
+  updateElement, 
+  addFlexColElement, 
+  removeElement, 
+  removeElementCol 
+} from "../feature/filesSlice";
 
 export const DesignerContext = createContext(null);
+export const filePath ='home'
+export default function DesignerContextProvider({ children }) {
+  const dispatch = useDispatch();
+  const files = useSelector((state) => state.files.files);
 
+  // Assuming elements and flexCol belong to the first file (modify as needed)
+  const selectedFilePath = files.length > 0 ? files[0].path : null;
 
-export default function DesignerContextProvider({children}){
-    const [elements,setElements] = useState([]);
-    const [selectedElement,setSelectedElement] = useState(null)
-    const [flexCol,setFlexCol] = useState({})
-    const removeElement = (id) =>{
-        setElements((prev)=>prev.filter((element)=>element.id !== id));
-    }
-    const removeElementCol = (parentId, childId) => {
-        setFlexCol((prev) => {
-            const newFlexCol = { ...prev };
-            if (!newFlexCol[parentId]) newFlexCol[parentId] = []; 
-            const updatedCol = newFlexCol[parentId].filter((element) => element.id !== childId);
-            newFlexCol[parentId] = updatedCol;
-            return newFlexCol; 
-        });
-    };
-    const addFlexColElement = (id, index, element) => {
-        setFlexCol(prev => {
-            const newFlexCol = { ...prev };
-            if (!newFlexCol[id]) newFlexCol[id] = []; 
-            
-            const updatedElements = [...newFlexCol[id]];
-            updatedElements.splice(index, 0, element); 
-    
-            newFlexCol[id] = updatedElements;
-            return newFlexCol;
-        });
-    };
-    const addElement = (index,elements) =>{
-        setElements(prev =>{
-            const newElements = [...prev]
-            newElements.splice(index,0,elements)
-            return newElements
-        })
-    }
+  const elements = selectedFilePath ? files.find(file => file.path === selectedFilePath)?.designer?.elementCol || [] : [];
 
-    const updateElement = (id,element) =>{
-       setElements(prev =>{
-        const newElement = [...prev]
-        const index = newElement.findIndex(el=>el.id === id)
-        newElement[index] = element
-        return newElement
-       })
-    }
+  const flexCol = selectedFilePath ? files.find(file => file.path === selectedFilePath)?.designer?.flexCol || {} : {};
 
-   
-    return <DesignerContext.Provider value={{elements,addElement,removeElement,selectedElement,setSelectedElement,updateElement,flexCol,setFlexCol,addFlexColElement,removeElementCol}}>{children}</DesignerContext.Provider>
+  const handleAddElement = ( index, element) => {
+ 
+    dispatch(addElement({ filePath, element, index }));
+  };
+
+  const handleRemoveElementFlex = (filePath, elementId, parentId) => {
+    dispatch(removeElementFlex({ filePath, elementId, parentId }));
+  };
+
+  const handleUpdateElement = (filePath, id, element) => {
+    dispatch(updateElement({ filePath, id, element }));
+  };
+
+  const handleRemoveElement = (filePath, elementId) => {
+    dispatch(removeElement({ filePath, elementId }));
+  };
+
+  const handleRemoveElementCol = (filePath, parentId) => {
+    dispatch(removeElementCol({ filePath, parentId }));
+  };
+
+  return (
+    <DesignerContext.Provider
+      value={{
+        elements,
+        flexCol,
+        addElement: handleAddElement,
+        removeElement: handleRemoveElement,
+        removeElementFlex: handleRemoveElementFlex,
+        updateElement: handleUpdateElement,
+        addFlexColElement: (filePath, element, index, parentId) => 
+          dispatch(addFlexColElement({ filePath, element, index, parentId })),
+        removeElementCol: handleRemoveElementCol,
+      }}
+    >
+      {children}
+    </DesignerContext.Provider>
+  );
 }
