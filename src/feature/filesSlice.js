@@ -29,13 +29,14 @@ export const filesSlice = createSlice({
     },
 
     addFlexColElement: (state, action) => {
-      const { filePath, element, index, parentId } = action.payload;
+      const { filePath, element, index, id } = action.payload;
+      console.log("FilePath",filePath,"Element",element,"index",index,"ParentId",id)
       const file = state.files.find(file => file.path === filePath);
       if (file) {
-        if (!file.designer.flexCol[parentId]) {
-          file.designer.flexCol[parentId] = [];
+        if (!file.designer.flexCol[id]) {
+          file.designer.flexCol[id] = [];
         }
-        file.designer.flexCol[parentId].splice(index, 0, element);
+        file.designer.flexCol[id].splice(index, 0, element);
       }
     },
 

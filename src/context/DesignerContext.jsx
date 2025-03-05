@@ -52,8 +52,8 @@ export default function DesignerContextProvider({ children }) {
         removeElement: handleRemoveElement,
         removeElementFlex: handleRemoveElementFlex,
         updateElement: handleUpdateElement,
-        addFlexColElement: (filePath, element, index, parentId) => 
-          dispatch(addFlexColElement({ filePath, element, index, parentId })),
+        addFlexColElement: ( id, index, element) => 
+          dispatch(addFlexColElement({ filePath, element, index, id })),
         removeElementCol: handleRemoveElementCol,
       }}
     >
