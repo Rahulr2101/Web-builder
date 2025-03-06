@@ -57,7 +57,8 @@ export const filesSlice = createSlice({
     },
 
     updateElement: (state, action) => {
-      const { filePath, id, element } = action.payload;
+      const {  id, element } = action.payload;
+      const   filePath = "home"
       const file = state.files.find(file => file.path === filePath);
       if (file) {
         const index = file.designer.elementCol.findIndex(el => el.id === id);

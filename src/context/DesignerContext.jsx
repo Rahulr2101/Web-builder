@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext,useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { 
   addElement, 
@@ -13,26 +13,23 @@ export const DesignerContext = createContext(null);
 export const filePath ='home'
 export default function DesignerContextProvider({ children }) {
   const dispatch = useDispatch();
+  const [selectedElement,setSelectedElement] = useState(null)
+  
   const files = useSelector((state) => state.files.files);
 
-  // Assuming elements and flexCol belong to the first file (modify as needed)
   const selectedFilePath = files.length > 0 ? files[0].path : null;
 
   const elements = selectedFilePath ? files.find(file => file.path === selectedFilePath)?.designer?.elementCol || [] : [];
 
   const flexCol = selectedFilePath ? files.find(file => file.path === selectedFilePath)?.designer?.flexCol || {} : {};
-
   const handleAddElement = ( index, element) => {
- 
     dispatch(addElement({ filePath, element, index }));
   };
-
   const handleRemoveElementFlex = (elementId, parentId) => {
     dispatch(removeElementFlex({ filePath, elementId, parentId }));
   };
-
-  const handleUpdateElement = (filePath, id, element) => {
-    dispatch(updateElement({ filePath, id, element }));
+  const handleUpdateElement = ( id, element) => {
+    dispatch(updateElement({ id, element }));
   };
 
   const handleRemoveElement = (id) => {
@@ -40,7 +37,6 @@ export default function DesignerContextProvider({ children }) {
   };
 
   const handleRemoveElementCol = (parentId, childId) => {
-    console.log(parentId,childId)
     dispatch(removeElementCol({ filePath, parentId,childId }));
   };
 
@@ -50,6 +46,8 @@ export default function DesignerContextProvider({ children }) {
         elements,
         flexCol,
         addElement: handleAddElement,
+        setSelectedElement,
+        selectedElement,
         removeElement: handleRemoveElement,
         removeElementFlex: handleRemoveElementFlex,
         updateElement: handleUpdateElement,

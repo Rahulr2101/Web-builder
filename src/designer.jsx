@@ -228,7 +228,6 @@ export function DesignerElementWrapper({ element }) {
               if(element['extraAttributes'].parent === '0'){
                 removeElement(element.id);
               }else{
-                console.log("This should work :(")
                 removeElementCol(element['extraAttributes'].parent,element.id)
               }
             }}
