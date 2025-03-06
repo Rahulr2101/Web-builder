@@ -27,7 +27,7 @@ export default function DesignerContextProvider({ children }) {
     dispatch(addElement({ filePath, element, index }));
   };
 
-  const handleRemoveElementFlex = (filePath, elementId, parentId) => {
+  const handleRemoveElementFlex = (elementId, parentId) => {
     dispatch(removeElementFlex({ filePath, elementId, parentId }));
   };
 
@@ -35,12 +35,13 @@ export default function DesignerContextProvider({ children }) {
     dispatch(updateElement({ filePath, id, element }));
   };
 
-  const handleRemoveElement = (filePath, elementId) => {
-    dispatch(removeElement({ filePath, elementId }));
+  const handleRemoveElement = (id) => {
+    dispatch(removeElement({ filePath, id }));
   };
 
-  const handleRemoveElementCol = (filePath, parentId) => {
-    dispatch(removeElementCol({ filePath, parentId }));
+  const handleRemoveElementCol = (parentId, childId) => {
+    console.log(parentId,childId)
+    dispatch(removeElementCol({ filePath, parentId,childId }));
   };
 
   return (

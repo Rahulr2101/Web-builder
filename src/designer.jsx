@@ -6,7 +6,7 @@ import { WebElement } from "./Webelement";
 import { idGenerator } from "./idGenerator";
 import { MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import { addPage } from "./feature/filesSlice";
+
 
 export const Designer = ({elemenstVar,flexColVar}) => {
   const {
@@ -18,6 +18,7 @@ export const Designer = ({elemenstVar,flexColVar}) => {
     removeElement,
     addFlexColElement,
     removeElementCol,
+    removeElementFlex
   } = useDesigner();
 
  
@@ -167,7 +168,7 @@ export const Designer = ({elemenstVar,flexColVar}) => {
 };
 
 export function DesignerElementWrapper({ element }) {
-  const { removeElement, selectedElement, setSelectedElement } = useDesigner();
+  const { removeElement, selectedElement, setSelectedElement,removeElementCol } = useDesigner();
   const [isMouseOver, setIsMouseOver] = useState(false);
   const DesignerElement = WebElement[element.type]?.designerComponent;
   const topdropable = useDroppable({
@@ -224,7 +225,12 @@ export function DesignerElementWrapper({ element }) {
             className="flex h-full bg-red-800 rounded-md items-center"
             onClick={(e) => {
               e.stopPropagation();
-              removeElement(element.id);
+              if(element['extraAttributes'].parent === '0'){
+                removeElement(element.id);
+              }else{
+                console.log("This should work :(")
+                removeElementCol(element['extraAttributes'].parent,element.id)
+              }
             }}
           >
             <MdDelete className="h-6 w-10" />

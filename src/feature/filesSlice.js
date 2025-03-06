@@ -30,7 +30,7 @@ export const filesSlice = createSlice({
 
     addFlexColElement: (state, action) => {
       const { filePath, element, index, id } = action.payload;
-      console.log("FilePath",filePath,"Element",element,"index",index,"ParentId",id)
+
       const file = state.files.find(file => file.path === filePath);
       if (file) {
         if (!file.designer.flexCol[id]) {
@@ -49,10 +49,10 @@ export const filesSlice = createSlice({
     },
 
     removeElement: (state, action) => {
-      const { filePath, elementId } = action.payload;
+      const { filePath, id } = action.payload;
       const file = state.files.find(file => file.path === filePath);
       if (file) {
-        file.designer.elementCol = file.designer.elementCol.filter(el => el.id !== elementId);
+        file.designer.elementCol = file.designer.elementCol.filter(el => el.id !== id);
       }
     },
 
@@ -68,10 +68,12 @@ export const filesSlice = createSlice({
     },
 
     removeElementCol: (state, action) => {
-      const { filePath, parentId } = action.payload;
+      const { filePath, parentId,childId } = action.payload;
       const file = state.files.find(file => file.path === filePath);
       if (file && file.designer.flexCol[parentId]) {
-        delete file.designer.flexCol[parentId];
+        file.designer.flexCol[parentId] = file.designer.flexCol[parentId].filter(
+          (element) => element.id !== childId
+        );
       }
     },
   },
