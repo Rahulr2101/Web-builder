@@ -30,13 +30,19 @@ export const filesSlice = createSlice({
 
     addFlexColElement: (state, action) => {
       const { filePath, element, index, id } = action.payload;
-
+      const newElement =  {
+        ...element  ,
+        extraAttributes:{
+          ...element.extraAttributes,
+          parent:id
+        }
+      }
       const file = state.files.find(file => file.path === filePath);
       if (file) {
         if (!file.designer.flexCol[id]) {
           file.designer.flexCol[id] = [];
         }
-        file.designer.flexCol[id].splice(index, 0, element);
+        file.designer.flexCol[id].splice(index, 0, newElement);
       }
     },
 
@@ -44,8 +50,22 @@ export const filesSlice = createSlice({
       const { filePath, element, index } = action.payload;
       const file = state.files.find(file => file.path === filePath);
       if (file) {
-        file.designer.elementCol.splice(index, 0, element);
+      if(element.extraAttributes.parent !== '0'){
+          const newElement = {
+            ...element,
+            extraAttributes:{
+              ...element.extraAttributes,
+              parent:'0'
+            }
+          }
+          file.designer.elementCol.splice(index,0,newElement)
+      }else{
+       
+          file.designer.elementCol.splice(index, 0, element);
+        
       }
+    }
+     
     },
 
     removeElement: (state, action) => {

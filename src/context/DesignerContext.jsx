@@ -19,7 +19,7 @@ export default function DesignerContextProvider({ children }) {
 
   const selectedFilePath = files.length > 0 ? files[0].path : null;
 
-  const elements = selectedFilePath ? files.find(file => file.path === selectedFilePath)?.designer?.elementCol || [] : [];
+  let elements = selectedFilePath ? files.find(file => file.path === selectedFilePath)?.designer?.elementCol || [] : [];
 
   const flexCol = selectedFilePath ? files.find(file => file.path === selectedFilePath)?.designer?.flexCol || {} : {};
   const handleAddElement = ( index, element) => {

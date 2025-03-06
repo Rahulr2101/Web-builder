@@ -56,8 +56,7 @@ export const Designer = ({elemenstVar,flexColVar}) => {
         const overId = over.data.current.elementId
         const childId = active.data.current.elementId;
         const activeElementIndex = elements.findIndex((el)=> el.id === childId)
-        const activeElement = elements[activeElementIndex];
-        activeElement.extraAttributes.parent = overId
+        let activeElement = elements[activeElementIndex];
         const flex_length = flexCol[overId] ? flexCol[overId].length : 0;
         addFlexColElement(overId,flex_length,activeElement)
         removeElement(childId)
@@ -112,7 +111,7 @@ export const Designer = ({elemenstVar,flexColVar}) => {
           const activeElement = { ...flexCol[parentId][activeElementIndex] };
           removeElementCol(parentId, activeId);
           let indexOfActiveElement = overElementIndex;
-          activeElement.extraAttributes.parent = "0"
+          
           if (isDroppingOverDesignerElementBottom) {
             indexOfActiveElement = indexOfActiveElement + 1;
           }
