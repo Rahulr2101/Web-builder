@@ -81,10 +81,19 @@ export const filesSlice = createSlice({
       const   filePath = "home"
       const file = state.files.find(file => file.path === filePath);
       if (file) {
-        const index = file.designer.elementCol.findIndex(el => el.id === id);
-        if (index !== -1) {
-          file.designer.elementCol[index] = element;
+        if(element.extraAttributes['parent'] != '0' ){
+            const parentId = element.extraAttributes['parent']
+            const index = file.designer.flexCol[parentId].findIndex(el=>el.id==id);
+            if(index !== -1){
+              file.designer.flexCol[parentId][index] = element
+            }
+        }else{
+          const index = file.designer.elementCol.findIndex(el => el.id === id);
+          if (index !== -1) {
+            file.designer.elementCol[index] = element;
+          }
         }
+      
       }
     },
 

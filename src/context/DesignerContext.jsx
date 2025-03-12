@@ -15,7 +15,7 @@ export default function DesignerContextProvider({ children }) {
   const dispatch = useDispatch();
   const [selectedElement,setSelectedElement] = useState(null)
   
-  const files = useSelector((state) => state.files.files);
+  const files = useSelector((state) => state.files.files); 
 
   const selectedFilePath = files.length > 0 ? files[0].path : null;
 
